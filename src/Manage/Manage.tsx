@@ -7,6 +7,7 @@ import { DataTable } from "./components/DataTable";
 export function Manage() {
   const mockBookDB = [
     {
+      id: 1,
       title: "Bestiariusz Słowiański",
       author: ["Paweł Zych", "Witold Vargas"],
       cover: "https://image.ceneostatic.pl/data/products/47857023/i-bestiariusz-slowianski-czyli-o-nieznanych-biziach-kadukach-i-samojadkach-czesc-2.jpg",
@@ -19,6 +20,7 @@ export function Manage() {
       <DataTable>
         {mockBookDB.map(book => (
           <BookItem
+            key={book.id}
             cover={book.cover}
             title={book.title}
             author={book.author}
