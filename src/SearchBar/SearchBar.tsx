@@ -5,7 +5,7 @@ import firebase from '../Firestore'
 export function SearchBar() {
     const db = firebase.firestore();
     const addBook = () => {
-        db.collection('items').doc('books').set({
+        db.collection('books').add({
             id: Date.now(),
             title: "Bestiariusz Słowiański",
             author: ["Paweł Zych", "Witold Vargas"],
