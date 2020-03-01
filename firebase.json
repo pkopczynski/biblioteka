@@ -10,12 +10,11 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "redirects": [],
     "rewrites": [
       {
         "source": "**",
         "destination": "/index.html"
       }
-    ]
+    ]s
   }
 }
