@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
 export const DataTable = styled.div`
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
 `;
