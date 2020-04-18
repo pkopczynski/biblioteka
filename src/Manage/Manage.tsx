@@ -1,33 +1,79 @@
 import React from "react";
 import { Fragment } from "react";
 import { SearchBar } from "../SearchBar/SearchBar";
-import { BookItem } from "./components/BookItem";
+import { BookItemComponent } from "./components/BookItemComponent";
 import { DataTable } from "./components/DataTable";
+import { fetchData } from "../dataFetcher";
+import { BookItemModal } from "./components/BookItemModal";
 
-export function Manage() {
-  const mockBookDB = [
-    {
-      id: 1,
-      title: "Bestiariusz Słowiański",
-      author: ["Paweł Zych", "Witold Vargas"],
-      cover: "https://image.ceneostatic.pl/data/products/47857023/i-bestiariusz-slowianski-czyli-o-nieznanych-biziach-kadukach-i-samojadkach-czesc-2.jpg",
-      available: true
+export interface IBook {
+  title: string;
+  author: string | string[];
+  cover: string;
+  id?: number | null | undefined;
+  available: boolean;
+}
+interface IState {
+  books: IBook[];
+  modalOpen: boolean;
+  modalItemId: number | null;
+}
+
+export class Manage extends React.Component {
+  state: IState = {
+    books: [],
+    modalOpen: false,
+    modalItemId: null,
+  }
+  componentDidMount() {
+    const { books } = this.state;
+    if (!books.length) {
+      fetchData()
+        .then(data =>
+          this.setState({
+            books: data,
+          })
+        );
     }
-  ];
-  return (
-    <Fragment>
-      <SearchBar />
-      <DataTable>
-        {mockBookDB.map(book => (
-          <BookItem
-            key={book.id}
-            cover={book.cover}
-            title={book.title}
-            author={book.author}
-            available={book.available}
-          />
-        ))}
-      </DataTable>
-    </Fragment>
-  );
+  }
+
+  handleOnClick = (id: number) => {
+    this.setState({
+      modalOpen: !this.state.modalOpen,
+      modalItemId: id,
+    })
+  }
+
+  render() {
+    const { books, modalOpen, modalItemId } = this.state;
+    return (
+      <Fragment>
+        <SearchBar />
+        <DataTable
+          disabled={modalOpen}
+        >
+          {books.length
+            ? books.map((book, index) => (
+              <BookItemComponent
+                onClick={this.handleOnClick}  
+                key={book.id ? book.id : index}
+                id={book.id}
+                cover={book.cover}
+                title={book.title}
+                author={book.author}
+                available={book.available}
+                disabled={modalOpen}
+              />
+            ))
+            : "loading..."}
+        </DataTable>
+        {modalOpen && 
+        <BookItemModal
+          elements={books}
+          id={modalItemId}  
+        />
+        }
+      </Fragment>
+    );
+  }
 }
