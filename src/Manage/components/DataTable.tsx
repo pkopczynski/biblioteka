@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const DataTable = styled.div`
+interface IDataTableProps {
+  disabled: boolean;
+}
+
+export const DataTable = styled.div<IDataTableProps>`
   display: flex;
   flex-wrap: wrap;
 `;

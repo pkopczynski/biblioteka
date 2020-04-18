@@ -8,9 +8,9 @@ import { BookItemModal } from "./components/BookItemModal";
 
 export interface IBook {
   title: string;
-  author: string[];
+  author: string | string[];
   cover: string;
-  id: number;
+  id?: number | null | undefined;
   available: boolean;
 }
 interface IState {
@@ -49,17 +49,20 @@ export class Manage extends React.Component {
     return (
       <Fragment>
         <SearchBar />
-        <DataTable>
+        <DataTable
+          disabled={modalOpen}
+        >
           {books.length
-            ? books.map((book) => (
+            ? books.map((book, index) => (
               <BookItemComponent
                 onClick={this.handleOnClick}  
-                key={book.id}
+                key={book.id ? book.id : index}
                 id={book.id}
                 cover={book.cover}
                 title={book.title}
                 author={book.author}
                 available={book.available}
+                disabled={modalOpen}
               />
             ))
             : "loading..."}

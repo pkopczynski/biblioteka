@@ -1,14 +1,11 @@
 import { PureComponent } from "react";
 import { BookItem } from "../styled/BookItem";
 import React from "react";
+import { IBook } from "../Manage";
 
-interface IBookItemProps {
-  cover: string;
-  title: string;
-  author: string[];
-  available: boolean;
+interface IBookItemProps extends IBook {
   onClick: any;
-  id: number;
+  disabled: boolean;
 }
 
 export class BookItemComponent extends PureComponent<IBookItemProps>{
@@ -17,11 +14,12 @@ export class BookItemComponent extends PureComponent<IBookItemProps>{
     onClick(id);
   }
   render() {
-    const { cover } = this.props;
+    const { cover, disabled } = this.props;
     return (
       <BookItem
         onClick={this.onClick}
         cover={cover}
+        disabled={disabled}
       />
     )
   }
