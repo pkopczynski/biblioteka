@@ -1,7 +1,11 @@
-export const openModal = () => {
-    type: OPEN_MODAL,
-}
+import * as Actions from '../constants/actionTypes';
 
-export const closeModal = () => {
-    type: CLOSE_MODAL,
-}
+export const openModal = (id) => ({
+    type: Actions.OPEN_MODAL,
+    id
+})
+
+export const closeModal = (id) => ({
+    type: Actions.CLOSE_MODAL,
+    id
+})

@@ -1,12 +1,13 @@
 import React, { PureComponent } from "react";
-import { IBook } from "../Manage";
+import { IBook } from "../ManageComponent";
 import { ModalWrapper } from "../styled/ModalWrapper";
 import { ModalButtons } from "./ModalButtons";
 import { ModalContent } from "./ModalContent";
 
 interface IBookItemModal {
     elements: IBook[];
-    id: number | null | undefined;
+    id: any;
+    closeModal: any;
 }
 
 export class BookItemModal extends PureComponent<IBookItemModal>{
@@ -32,6 +33,7 @@ export class BookItemModal extends PureComponent<IBookItemModal>{
     }
 
     render() {
+        const {closeModal} = this.props;
         const { title, author, cover, available, id } = this.state;
         return (
             <ModalWrapper>
@@ -43,6 +45,7 @@ export class BookItemModal extends PureComponent<IBookItemModal>{
                 />
                 <ModalButtons
                     id={id}
+                    closeModal={closeModal}
                 />
             </ModalWrapper>
         )

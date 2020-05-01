@@ -19,7 +19,14 @@ interface IState {
   modalItemId: number | null;
 }
 
-export class Manage extends React.Component {
+interface ManageComponentProps {
+  openModal: any;
+  closeModal: any;
+  isItemModalOpen: boolean;
+  modalElementId: string;
+}
+
+export class ManageComponent extends React.Component<ManageComponentProps> {
   state: IState = {
     books: [],
     modalOpen: false,
@@ -38,40 +45,40 @@ export class Manage extends React.Component {
   }
 
   handleOnClick = (id: number) => {
-    this.setState({
-      modalOpen: !this.state.modalOpen,
-      modalItemId: id,
-    })
+    const {openModal} = this.props;
+    openModal(id);
   }
 
   render() {
-    const { books, modalOpen, modalItemId } = this.state;
+    const {isItemModalOpen, modalElementId, closeModal} = this.props;
+    const { books } = this.state;
     return (
       <Fragment>
         <SearchBar />
         <DataTable
-          disabled={modalOpen}
+          disabled={isItemModalOpen}
         >
           {books.length
             ? books.map((book, index) => (
               <BookItemComponent
-                onClick={this.handleOnClick}  
+                onClick={this.handleOnClick}
                 key={book.id ? book.id : index}
                 id={book.id}
                 cover={book.cover}
                 title={book.title}
                 author={book.author}
                 available={book.available}
-                disabled={modalOpen}
+                disabled={isItemModalOpen}
               />
             ))
             : "loading..."}
         </DataTable>
-        {modalOpen && 
-        <BookItemModal
-          elements={books}
-          id={modalItemId}  
-        />
+        {isItemModalOpen &&
+          <BookItemModal
+            elements={books}
+            id={modalElementId}
+            closeModal={closeModal}
+          />
         }
       </Fragment>
     );

@@ -1,7 +1,7 @@
 import { PureComponent } from "react";
 import { BookItem } from "../styled/BookItem";
 import React from "react";
-import { IBook } from "../Manage";
+import { IBook } from "../ManageComponent";
 
 interface IBookItemProps extends IBook {
   onClick: any;

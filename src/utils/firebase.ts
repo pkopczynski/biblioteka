@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import { IBook } from "../Manage/Manage";
+import { IBook } from "../Manage/ManageComponent";
 import { firebaseConfig } from "../Firestore";
 
 firebase.initializeApp(firebaseConfig);

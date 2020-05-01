@@ -1,6 +1,6 @@
 import { PureComponent } from "react";
 import React from "react";
-import { IBook } from "../../Manage/Manage";
+import { IBook } from "../../Manage/ManageComponent";
 import { Collection } from "../../constants/dbSpaces";
 
 interface IAddButtonProps {
