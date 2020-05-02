@@ -3,9 +3,9 @@ import React from "react";
 import { Collection } from "../../constants/dbSpaces";
 
 interface IDeleteButtonProps {
-    onRemove: (space: string, elementId: number | null | undefined) => void;
-    elementId: number | null | undefined;
-    closeModal: any;
+    onRemove: (space: string, elementId: string) => void;
+    elementId: string;
+    closeModal: () => void;
 }
 
 export class DeleteButton extends PureComponent<IDeleteButtonProps> {

@@ -10,7 +10,7 @@ export interface IBook {
   title: string;
   author: string | string[];
   cover: string;
-  id?: number | null | undefined;
+  id: string;
   available: boolean;
 }
 interface IState {
@@ -20,20 +20,24 @@ interface IState {
 }
 
 interface ManageComponentProps {
-  openModal: any;
-  closeModal: any;
+  openModal: (id: string) => void;
+  closeModal: () => void;
+  fetchBooks: () => void;
   isItemModalOpen: boolean;
   modalElementId: string;
 }
 
 export class ManageComponent extends React.Component<ManageComponentProps> {
+
   state: IState = {
     books: [],
     modalOpen: false,
     modalItemId: null,
   }
   componentDidMount() {
+    const {fetchBooks} = this.props;
     const { books } = this.state;
+    fetchBooks();
     if (!books.length) {
       fetchData()
         .then(data =>
@@ -44,13 +48,13 @@ export class ManageComponent extends React.Component<ManageComponentProps> {
     }
   }
 
-  handleOnClick = (id: number) => {
-    const {openModal} = this.props;
+  handleOnClick = (id: string) => {
+    const { openModal } = this.props;
     openModal(id);
   }
 
   render() {
-    const {isItemModalOpen, modalElementId, closeModal} = this.props;
+    const { isItemModalOpen, modalElementId, closeModal } = this.props;
     const { books } = this.state;
     return (
       <Fragment>
@@ -63,7 +67,7 @@ export class ManageComponent extends React.Component<ManageComponentProps> {
               <BookItemComponent
                 onClick={this.handleOnClick}
                 key={book.id ? book.id : index}
-                id={book.id}
+                id={book.id ? book.id : ''}
                 cover={book.cover}
                 title={book.title}
                 author={book.author}

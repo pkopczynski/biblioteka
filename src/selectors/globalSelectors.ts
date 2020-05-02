@@ -1,11 +1,13 @@
-function getGlobalState(state: any) {
+import { Store } from "../types/interfaces";
+
+function getGlobalState(state: Store) {
     return state.globalReducer;
 }
 
-export function getIsItemModalOpen(state: any) {
+export function getIsItemModalOpen(state: Store) {
     return getGlobalState(state).isItemModalOpen;
 }
 
-export function getModalElementId(state: any) {
+export function getModalElementId(state: Store) {
     return getGlobalState(state).modalElementId;
 }

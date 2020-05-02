@@ -4,8 +4,8 @@ import { removeElement } from "../../utils/firebase";
 import { DeleteButton } from "./DeleteButton";
 
 interface IModalButtonsProps {
-    id: number | null | undefined;
-    closeModal: any;
+    id: string;
+    closeModal: () => void;
 }
 
 export class ModalButtons extends PureComponent<IModalButtonsProps> {

@@ -1,18 +1,21 @@
 import { connect } from "react-redux";
-import {openModal, closeModal} from '../actions';
+import {openModal, closeModal, AppActions, fetchBooks} from '../actions';
 import { ManageComponent } from "./ManageComponent";
 import { getIsItemModalOpen, getModalElementId } from "../selectors/globalSelectors";
+import { Store } from "../types/interfaces";
+import { Dispatch } from "react";
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: Store) => {
     return {
         isItemModalOpen: getIsItemModalOpen(state),
         modalElementId: getModalElementId(state),
     }
 };
 
-const mapDispatchToProps = (dispatch: (arg0: { type: string; }) => any) => ({
+const mapDispatchToProps = (dispatch: Dispatch<AppActions>) => ({
     openModal: (id: string) => dispatch(openModal(id)),
-    closeModal: (id: string) => dispatch(closeModal(id))
+    closeModal: () => dispatch(closeModal()),
+    fetchBooks: () => dispatch(fetchBooks()),
 })
 
 export const Manage = connect(mapStateToProps, mapDispatchToProps)(ManageComponent)

@@ -4,11 +4,12 @@ import React from "react";
 import { IBook } from "../ManageComponent";
 
 interface IBookItemProps extends IBook {
-  onClick: any;
+  onClick: (id: string) => void;
   disabled: boolean;
 }
 
 export class BookItemComponent extends PureComponent<IBookItemProps>{
+
   onClick = () => {
     const { onClick, id } = this.props;
     onClick(id);

@@ -1,2 +1,5 @@
-export const OPEN_MODAL = "open_modal";
-export const CLOSE_MODAL = "close_modal";
+export const OPEN_MODAL = "OPEN_MODAL";
+export const CLOSE_MODAL = "CLOSE_MODAL";
+export const FETCH_BOOKS = "FETCH_BOOKS";
+export const FETCH_BOOKS_SUCCESS = "FETCH_BOOKS_SUCCESS";
+export const FETCH_BOOKS_FAILURE = "FETCH_BOOKS_FAILURE";

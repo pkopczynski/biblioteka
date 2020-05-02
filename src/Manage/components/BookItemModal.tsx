@@ -6,8 +6,8 @@ import { ModalContent } from "./ModalContent";
 
 interface IBookItemModal {
     elements: IBook[];
-    id: any;
-    closeModal: any;
+    id: string;
+    closeModal: () => void;
 }
 
 export class BookItemModal extends PureComponent<IBookItemModal>{
@@ -16,7 +16,7 @@ export class BookItemModal extends PureComponent<IBookItemModal>{
         author: 'no author',
         title: 'no title',
         cover: 'no cover',
-        id: null,
+        id: '',
         available: true,
     }
 
