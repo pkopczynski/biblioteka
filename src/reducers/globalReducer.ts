@@ -1,6 +1,5 @@
 import * as Actions from '../constants/actionTypes';
 import { State } from '../types/interfaces';
-import { AppActions, Action, ModalAction } from '../actions';
 
 const initialState = {
     isItemModalOpen: false,
@@ -8,6 +7,7 @@ const initialState = {
     dataIsFetching: false,
     books: {},
     error: {},
+    dataIsReady: false,
 }
 
 export const globalReducer = (state: State = initialState, action: any): State => {
@@ -25,25 +25,30 @@ export const globalReducer = (state: State = initialState, action: any): State =
                 modalElementId: '',
             };
         case Actions.FETCH_BOOKS:
-            console.log('poszedł fetch');
             return {
                 ...state,
                 dataIsFetching: true,
+                dataIsReady: false,
             };
         case Actions.FETCH_BOOKS_SUCCESS:
-            console.log('success: ', action.response);
             return {
                 ...state,
                 books: action.response,
                 dataIsFetching: false,
+                dataIsReady: true,
             };
         case Actions.FETCH_BOOKS_FAILURE:
-            console.log('error: ', action.error);
             return {
                 ...state,
                 error: action.error,
                 dataIsFetching: false,
+                dataIsReady: false,
             };
+        case Actions.DELETE_BOOK:
+            return {
+                ...state,
+                dataIsReady: false,
+            }
         default:
             return initialState;
     }

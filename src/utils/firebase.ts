@@ -13,5 +13,5 @@ export function addElement(space: string, element: IBook) {
 }
 
 export function removeElement(space: string, elementId: string) {
-    db.collection(space).doc(elementId?.toString()).delete();
+    return db.collection(space).doc(elementId?.toString()).delete()
 }

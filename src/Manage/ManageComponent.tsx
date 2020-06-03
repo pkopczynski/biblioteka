@@ -3,7 +3,6 @@ import { Fragment } from "react";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { BookItemComponent } from "./components/BookItemComponent";
 import { DataTable } from "./components/DataTable";
-import { fetchData } from "../dataFetcher";
 import { BookItemModal } from "./components/BookItemModal";
 
 export interface IBook {
@@ -23,8 +22,12 @@ interface ManageComponentProps {
   openModal: (id: string) => void;
   closeModal: () => void;
   fetchBooks: () => void;
+  deleteBook: (elementId: string) => void;
   isItemModalOpen: boolean;
   modalElementId: string;
+  dataIsReady: boolean;
+  books: IBook[];
+  dataIsFetching: boolean;
 }
 
 export class ManageComponent extends React.Component<ManageComponentProps> {
@@ -35,16 +38,15 @@ export class ManageComponent extends React.Component<ManageComponentProps> {
     modalItemId: null,
   }
   componentDidMount() {
-    const {fetchBooks} = this.props;
-    const { books } = this.state;
-    fetchBooks();
-    if (!books.length) {
-      fetchData()
-        .then(data =>
-          this.setState({
-            books: data,
-          })
-        );
+    const {fetchBooks, dataIsReady, dataIsFetching} = this.props;
+    if (!dataIsReady && !dataIsFetching) {
+      fetchBooks();
+    }
+  }
+
+  componentDidUpdate(prevProps: ManageComponentProps) {
+    if (!this.props.dataIsFetching && !this.props.dataIsReady && this.props.dataIsReady !== prevProps.dataIsReady) {
+      this.props.fetchBooks();
     }
   }
 
@@ -54,8 +56,7 @@ export class ManageComponent extends React.Component<ManageComponentProps> {
   }
 
   render() {
-    const { isItemModalOpen, modalElementId, closeModal } = this.props;
-    const { books } = this.state;
+    const { isItemModalOpen, modalElementId, closeModal, deleteBook, books } = this.props;
     return (
       <Fragment>
         <SearchBar />
@@ -82,6 +83,7 @@ export class ManageComponent extends React.Component<ManageComponentProps> {
             elements={books}
             id={modalElementId}
             closeModal={closeModal}
+            onDeleteClick={deleteBook}
           />
         }
       </Fragment>

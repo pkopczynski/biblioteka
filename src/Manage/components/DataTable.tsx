@@ -7,4 +7,5 @@ interface IDataTableProps {
 export const DataTable = styled.div<IDataTableProps>`
   display: flex;
   flex-wrap: wrap;
+  min-height: 330px;
 `;

@@ -11,3 +11,15 @@ export function getIsItemModalOpen(state: Store) {
 export function getModalElementId(state: Store) {
     return getGlobalState(state).modalElementId;
 }
+
+export function dataIsReady(state: Store) {
+    return getGlobalState(state).dataIsReady;
+}
+
+export function getBooks(state: Store) {
+    return getGlobalState(state).books;
+}
+
+export function dataIsFetching(state: Store) {
+    return getGlobalState(state).dataIsFetching;
+}

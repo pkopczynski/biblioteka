@@ -1,5 +1,6 @@
 import * as Actions from '../constants/actionTypes';
 import { fetchData } from '../dataFetcher';
+import { removeElement } from '../utils/firebase';
 
 export interface Action {
     type: string;
@@ -36,6 +37,27 @@ export const fetchBooksSuccess = (response: any) => ({
 
 export const fetchBooksFailure = (error: any) => ({
     type: Actions.FETCH_BOOKS_FAILURE,
+    error
+})
+
+export function deleteBook(space: string, elementId: string) {
+    return (dispatch: any) => {
+        dispatch({
+            type: Actions.DELETE_BOOK,
+        })
+
+        return removeElement(space, elementId)
+            .then(() => dispatch(deleteBookSuccess()))
+            .catch((error: any) => dispatch(deleteBookFailure(error)));
+    }
+}
+
+export const deleteBookSuccess = () => ({
+    type: Actions.DELETE_BOOK_SUCCESS,
+})
+
+export const deleteBookFailure = (error: any) => ({
+    type: Actions.DELETE_BOOK_FAILURE,
     error
 })
 

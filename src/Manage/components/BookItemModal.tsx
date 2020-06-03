@@ -8,6 +8,7 @@ interface IBookItemModal {
     elements: IBook[];
     id: string;
     closeModal: () => void;
+    onDeleteClick: (elementId: string) => void;
 }
 
 export class BookItemModal extends PureComponent<IBookItemModal>{
@@ -33,7 +34,7 @@ export class BookItemModal extends PureComponent<IBookItemModal>{
     }
 
     render() {
-        const {closeModal} = this.props;
+        const {closeModal, onDeleteClick} = this.props;
         const { title, author, cover, available, id } = this.state;
         return (
             <ModalWrapper>
@@ -46,6 +47,7 @@ export class BookItemModal extends PureComponent<IBookItemModal>{
                 <ModalButtons
                     id={id}
                     closeModal={closeModal}
+                    onDeleteClick={onDeleteClick}
                 />
             </ModalWrapper>
         )
