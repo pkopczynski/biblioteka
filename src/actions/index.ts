@@ -1,28 +1,31 @@
-import * as Actions from '../constants/actionTypes';
 import { removeElement, addElement, fetchData } from '../api/firebase';
 import { IBook } from '../Manage/ManageComponent';
+import { ActionType } from '../constants/actionTypes';
 
-export interface Action {
-    type: string;
+export interface Action<ActionType> {
+    type: ActionType;
 }
 
-export interface ModalAction extends Action {
+export interface OpenModal extends Action<ActionType.openModal> {
     id: string;
 }
 
-export const openModal = (id: string): ModalAction => ({
-    type: Actions.OPEN_MODAL,
+type CloseModal = Action<ActionType.closeModal>
+
+export const openModal = (id: string): OpenModal => ({
+    type: ActionType.openModal,
     id
 })
 
-export const closeModal = (): Action => ({
-    type: Actions.CLOSE_MODAL,
+export const closeModal = (): CloseModal => ({
+    type: ActionType.closeModal,
 })
 
 export function fetchBooks(space: string) {
     return (dispatch: any) => {
-        dispatch
-            ({ type: Actions.FETCH_BOOKS, })
+        dispatch({ 
+                type: ActionType.fetchBooks, 
+            })
 
         return fetchData(space)
             .then(response => dispatch(fetchBooksSuccess(response)))
@@ -31,19 +34,19 @@ export function fetchBooks(space: string) {
 }
 
 export const fetchBooksSuccess = (response: any) => ({
-    type: Actions.FETCH_BOOKS_SUCCESS,
+    type: ActionType.fetchBooksSuccess,
     response
 }) 
 
 export const fetchBooksFailure = (error: any) => ({
-    type: Actions.FETCH_BOOKS_FAILURE,
+    type: ActionType.fetchBooksFailure,
     error
 })
 
 export function deleteBook(space: string, elementId: string) {
     return (dispatch: any) => {
         dispatch({
-            type: Actions.DELETE_BOOK,
+            type: ActionType.deleteBook,
         })
 
         return removeElement(space, elementId)
@@ -53,18 +56,18 @@ export function deleteBook(space: string, elementId: string) {
 }
 
 export const deleteBookSuccess = () => ({
-    type: Actions.DELETE_BOOK_SUCCESS,
+    type: ActionType.deleteBookSuccess,
 })
 
 export const deleteBookFailure = (error: any) => ({
-    type: Actions.DELETE_BOOK_FAILURE,
+    type: ActionType.deleteBookFailure,
     error
 })
 
 export function addBook(space: string, element: IBook) {
     return (dispatch: any) => {
         dispatch({
-            type: Actions.ADD_BOOK,
+            type: ActionType.addBook,
         })
         return addElement(space, element)
         .then(() => dispatch(addBookSuccess()))
@@ -73,12 +76,12 @@ export function addBook(space: string, element: IBook) {
 }
 
 export const addBookSuccess = () => ({
-    type: Actions.ADD_BOOK_SUCCESS,
+    type: ActionType.addBookSuccess,
 })
 
 export const addBookFailure = (error: any) => ({
-    type: Actions.ADD_BOOK_FAILURE,
+    type: ActionType.addBookFailure,
     error
 })
 //tu dodawać kolejne interface dla akcji
-export type AppActions = Action | ModalAction | any;
+export type AppActions = OpenModal | CloseModal | any;

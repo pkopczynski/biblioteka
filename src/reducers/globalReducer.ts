@@ -1,5 +1,5 @@
-import * as Actions from '../constants/actionTypes';
 import { State } from '../types/interfaces';
+import { ActionType } from '../constants/actionTypes';
 
 const initialState = {
     isItemModalOpen: false,
@@ -12,53 +12,53 @@ const initialState = {
 
 export const globalReducer = (state: State = initialState, action: any): State => {
     switch (action.type) {
-        case Actions.OPEN_MODAL:
+        case ActionType.openModal:
             return {
                 ...state,
                 isItemModalOpen: true,
                 modalElementId: action.id,
             };
-        case Actions.CLOSE_MODAL:
+        case ActionType.closeModal:
             return {
                 ...state,
                 isItemModalOpen: false,
                 modalElementId: '',
             };
-        case Actions.FETCH_BOOKS:
+        case ActionType.fetchBooks:
             return {
                 ...state,
                 dataIsFetching: true,
             };
-        case Actions.FETCH_BOOKS_SUCCESS:
+        case ActionType.fetchBooksSuccess:
             return {
                 ...state,
                 books: action.response,
                 dataIsFetching: false,
                 shouldFetchData: false,
             };
-        case Actions.FETCH_BOOKS_FAILURE:
+        case ActionType.fetchBooksFailure:
             return {
                 ...state,
                 error: action.error,
                 dataIsFetching: false,
                 shouldFetchData: true,
             };
-        case Actions.DELETE_BOOK:
+        case ActionType.deleteBook:
             return {
                 ...state,
                 shouldFetchData: false,
             }
-        case Actions.DELETE_BOOK_SUCCESS:
+        case ActionType.deleteBookSuccess:
             return {
                 ...state,
                 shouldFetchData: true,
             }
-        case Actions.ADD_BOOK:
+        case ActionType.addBook:
             return {
                 ...state,
                 shouldFetchData: false,
             }
-        case Actions.ADD_BOOK_SUCCESS:
+        case ActionType.addBookSuccess:
             return {
                 ...state,
                 shouldFetchData: true,

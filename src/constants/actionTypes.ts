@@ -1,11 +1,13 @@
-export const OPEN_MODAL = "OPEN_MODAL";
-export const CLOSE_MODAL = "CLOSE_MODAL";
-export const FETCH_BOOKS = "FETCH_BOOKS";
-export const FETCH_BOOKS_SUCCESS = "FETCH_BOOKS_SUCCESS";
-export const FETCH_BOOKS_FAILURE = "FETCH_BOOKS_FAILURE";
-export const DELETE_BOOK = "DELETE_BOOK";
-export const DELETE_BOOK_SUCCESS = "DELETE_BOOK_SUCCESS";
-export const DELETE_BOOK_FAILURE = "DELETE_BOOK_FAILURE";
-export const ADD_BOOK = "ADD_BOOK";
-export const ADD_BOOK_SUCCESS = "ADD_BOOK_SUCCESS";
-export const ADD_BOOK_FAILURE = "ADD_BOOK_FAILURE";
+export enum ActionType {
+    openModal = "OPEN_MODAL",
+    closeModal = "CLOSE_MODAL",
+    fetchBooks = "FETCH_BOOKS",
+    fetchBooksSuccess = "FETCH_BOOKS_SUCCESS",
+    fetchBooksFailure = "FETCH_BOOKS_FAILURE",
+    deleteBook = "DELETE_BOOK",
+    deleteBookSuccess = "DELETE_BOOK_SUCCESS",
+    deleteBookFailure = "DELETE_BOOK_FAILURE",
+    addBook = "ADD_BOOK",
+    addBookSuccess = "ADD_BOOK_SUCCESS",
+    addBookFailure = "ADD_BOOK_FAILURE",
+}
