@@ -1,6 +1,6 @@
 import * as Actions from '../constants/actionTypes';
-import { fetchData } from '../dataFetcher';
-import { removeElement } from '../utils/firebase';
+import { removeElement, addElement, fetchData } from '../api/firebase';
+import { IBook } from '../Manage/ManageComponent';
 
 export interface Action {
     type: string;
@@ -19,12 +19,12 @@ export const closeModal = (): Action => ({
     type: Actions.CLOSE_MODAL,
 })
 
-export function fetchBooks() {
+export function fetchBooks(space: string) {
     return (dispatch: any) => {
         dispatch
             ({ type: Actions.FETCH_BOOKS, })
 
-        return fetchData()
+        return fetchData(space)
             .then(response => dispatch(fetchBooksSuccess(response)))
             .catch(error => dispatch(fetchBooksFailure(error)));
     }
@@ -61,5 +61,24 @@ export const deleteBookFailure = (error: any) => ({
     error
 })
 
+export function addBook(space: string, element: IBook) {
+    return (dispatch: any) => {
+        dispatch({
+            type: Actions.ADD_BOOK,
+        })
+        return addElement(space, element)
+        .then(() => dispatch(addBookSuccess()))
+        .catch((error) => dispatch(addBookFailure(error)))
+    }
+}
+
+export const addBookSuccess = () => ({
+    type: Actions.ADD_BOOK_SUCCESS,
+})
+
+export const addBookFailure = (error: any) => ({
+    type: Actions.ADD_BOOK_FAILURE,
+    error
+})
 //tu dodawać kolejne interface dla akcji
 export type AppActions = Action | ModalAction | any;

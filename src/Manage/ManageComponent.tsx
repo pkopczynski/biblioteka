@@ -4,6 +4,7 @@ import { SearchBar } from "../SearchBar/SearchBar";
 import { BookItemComponent } from "./components/BookItemComponent";
 import { DataTable } from "./components/DataTable";
 import { BookItemModal } from "./components/BookItemModal";
+import { NoData } from "./components/NoData";
 
 export interface IBook {
   title: string;
@@ -12,12 +13,6 @@ export interface IBook {
   id: string;
   available: boolean;
 }
-interface IState {
-  books: IBook[];
-  modalOpen: boolean;
-  modalItemId: number | null;
-}
-
 interface ManageComponentProps {
   openModal: (id: string) => void;
   closeModal: () => void;
@@ -25,27 +20,23 @@ interface ManageComponentProps {
   deleteBook: (elementId: string) => void;
   isItemModalOpen: boolean;
   modalElementId: string;
-  dataIsReady: boolean;
-  books: IBook[];
+  shouldFetchData: boolean;
+  books: Array<IBook>;
   dataIsFetching: boolean;
 }
 
 export class ManageComponent extends React.Component<ManageComponentProps> {
 
-  state: IState = {
-    books: [],
-    modalOpen: false,
-    modalItemId: null,
-  }
   componentDidMount() {
-    const {fetchBooks, dataIsReady, dataIsFetching} = this.props;
-    if (!dataIsReady && !dataIsFetching) {
+    const { fetchBooks, shouldFetchData, dataIsFetching } = this.props;
+    if (shouldFetchData && !dataIsFetching) {
       fetchBooks();
     }
   }
 
   componentDidUpdate(prevProps: ManageComponentProps) {
-    if (!this.props.dataIsFetching && !this.props.dataIsReady && this.props.dataIsReady !== prevProps.dataIsReady) {
+    const { shouldFetchData, dataIsFetching } = this.props;
+    if (!dataIsFetching && shouldFetchData && shouldFetchData !== prevProps.shouldFetchData) {
       this.props.fetchBooks();
     }
   }
@@ -56,15 +47,19 @@ export class ManageComponent extends React.Component<ManageComponentProps> {
   }
 
   render() {
-    const { isItemModalOpen, modalElementId, closeModal, deleteBook, books } = this.props;
+    const { isItemModalOpen, modalElementId, closeModal, deleteBook, books, dataIsFetching } = this.props;
+    const emptyShelf = books.length === 0;
     return (
       <Fragment>
         <SearchBar />
         <DataTable
           disabled={isItemModalOpen}
         >
-          {books.length
-            ? books.map((book, index) => (
+          {emptyShelf && <NoData/>}
+          {dataIsFetching ?
+            "loading..."
+            :
+            books.map((book, index) => (
               <BookItemComponent
                 onClick={this.handleOnClick}
                 key={book.id ? book.id : index}
@@ -75,8 +70,7 @@ export class ManageComponent extends React.Component<ManageComponentProps> {
                 available={book.available}
                 disabled={isItemModalOpen}
               />
-            ))
-            : "loading..."}
+            ))}
         </DataTable>
         {isItemModalOpen &&
           <BookItemModal

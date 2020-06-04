@@ -1,10 +1,12 @@
+import { IBook } from "../Manage/ManageComponent";
+
 export interface State {
     isItemModalOpen: boolean;
     modalElementId: string;
     dataIsFetching: boolean;
-    books: any;
+    books: Array<IBook>;
     error: any;
-    dataIsReady: boolean;
+    shouldFetchData: boolean;
 }
 
 export interface Store {

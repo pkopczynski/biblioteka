@@ -5,9 +5,9 @@ const initialState = {
     isItemModalOpen: false,
     modalElementId: '',
     dataIsFetching: false,
-    books: {},
+    books: [],
     error: {},
-    dataIsReady: false,
+    shouldFetchData: true,
 }
 
 export const globalReducer = (state: State = initialState, action: any): State => {
@@ -28,26 +28,40 @@ export const globalReducer = (state: State = initialState, action: any): State =
             return {
                 ...state,
                 dataIsFetching: true,
-                dataIsReady: false,
             };
         case Actions.FETCH_BOOKS_SUCCESS:
             return {
                 ...state,
                 books: action.response,
                 dataIsFetching: false,
-                dataIsReady: true,
+                shouldFetchData: false,
             };
         case Actions.FETCH_BOOKS_FAILURE:
             return {
                 ...state,
                 error: action.error,
                 dataIsFetching: false,
-                dataIsReady: false,
+                shouldFetchData: true,
             };
         case Actions.DELETE_BOOK:
             return {
                 ...state,
-                dataIsReady: false,
+                shouldFetchData: false,
+            }
+        case Actions.DELETE_BOOK_SUCCESS:
+            return {
+                ...state,
+                shouldFetchData: true,
+            }
+        case Actions.ADD_BOOK:
+            return {
+                ...state,
+                shouldFetchData: false,
+            }
+        case Actions.ADD_BOOK_SUCCESS:
+            return {
+                ...state,
+                shouldFetchData: true,
             }
         default:
             return initialState;

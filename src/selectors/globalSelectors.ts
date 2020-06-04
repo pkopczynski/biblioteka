@@ -12,8 +12,8 @@ export function getModalElementId(state: Store) {
     return getGlobalState(state).modalElementId;
 }
 
-export function dataIsReady(state: Store) {
-    return getGlobalState(state).dataIsReady;
+export function shouldFetchData(state: Store) {
+    return getGlobalState(state).shouldFetchData;
 }
 
 export function getBooks(state: Store) {
