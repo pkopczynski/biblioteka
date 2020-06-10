@@ -1,5 +1,6 @@
 import { State } from '../types/interfaces';
 import { ActionType } from '../constants/actionTypes';
+import { AppActions } from '../actions';
 
 const initialState = {
     isItemModalOpen: false,
@@ -10,7 +11,7 @@ const initialState = {
     shouldFetchData: true,
 }
 
-export const globalReducer = (state: State = initialState, action: any): State => {
+export const globalReducer = (state: State = initialState, action: AppActions): State => {
     switch (action.type) {
         case ActionType.openModal:
             return {

@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
-import {openModal, closeModal, AppActions, fetchBooks, deleteBook} from '../actions';
+import {openModal, closeModal, fetchBooks, deleteBook} from '../actions';
 import { ManageComponent } from "./ManageComponent";
 import { getIsItemModalOpen, getModalElementId, getBooks, dataIsFetching, shouldFetchData } from "../selectors/globalSelectors";
 import { Store } from "../types/interfaces";
-import { Dispatch } from "react";
 import { Collection } from "../constants/dbSpaces";
+import { AnyThunkDispatch } from "../actions/interface";
 
 const mapStateToProps = (state: Store) => {
     return {
@@ -16,7 +16,7 @@ const mapStateToProps = (state: Store) => {
     }
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<AppActions>) => ({
+const mapDispatchToProps = (dispatch: AnyThunkDispatch) => ({
     openModal: (id: string) => dispatch(openModal(id)),
     closeModal: () => dispatch(closeModal()),
     fetchBooks: () => dispatch(fetchBooks(Collection.books)),
