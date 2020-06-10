@@ -1,22 +1,24 @@
 import { PureComponent } from "react";
 import React from "react";
-import { removeElement } from "../../utils/firebase";
 import { DeleteButton } from "./DeleteButton";
 
 interface IModalButtonsProps {
-    id: number | null | undefined;
+    id: string;
+    closeModal: () => void;
+    onDeleteClick: (elementId: string) => void;
 }
 
 export class ModalButtons extends PureComponent<IModalButtonsProps> {
     render() {
-        const { id } = this.props;
+        const { id, closeModal, onDeleteClick } = this.props;
         return (
             <div>
                 <DeleteButton
-                    onRemove={removeElement}
+                    onDeleteClick={onDeleteClick}
                     elementId={id}
+                    closeModal={closeModal}
                 />
-                <button>cancel</button>
+                <button onClick={closeModal}>cancel</button>
             </div>
         )
     }
