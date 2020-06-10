@@ -1,16 +1,17 @@
 import { PureComponent } from "react";
 import React from "react";
-import { Collection } from "../../constants/dbSpaces";
 
 interface IDeleteButtonProps {
-    onRemove: (space: string, elementId: number | null | undefined) => void;
-    elementId: number | null | undefined;
+    onDeleteClick: (elementId: string) => void;
+    elementId: string;
+    closeModal: () => void;
 }
 
 export class DeleteButton extends PureComponent<IDeleteButtonProps> {
     handleOnClick = () => {
-        const {onRemove, elementId} = this.props;
-        onRemove(Collection.books, elementId);
+        const {onDeleteClick, elementId, closeModal} = this.props;
+        onDeleteClick(elementId);
+        closeModal();
     } 
     render() {
         return(
