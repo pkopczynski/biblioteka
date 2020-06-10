@@ -1,4 +1,4 @@
-import { Action, AnyAction } from "react-redux/node_modules/redux";
+import { Action, AnyAction } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { Store } from "../types/interfaces";
 

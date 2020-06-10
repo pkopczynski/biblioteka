@@ -10,4 +10,13 @@ export enum ActionType {
     addBook = "ADD_BOOK",
     addBookSuccess = "ADD_BOOK_SUCCESS",
     addBookFailure = "ADD_BOOK_FAILURE",
+    createUser = "REGISTER_USER",
+    createUserSuccess = "CREATE_USER_SUCCESS",
+    createUserFailure = "CREATE_USER_FAILURE",
+    logInUser = "LOG_IN_USER",
+    logInUserSuccess = "LOG_IN_USER_SUCCESS",
+    logInUserFailure = "LOG_IN_USER_FAILURE",
+    logOutUser = "LOG_OUT_USER",
+    logOutUserFailure = "LOG_OUT_USER_FAILURE",
+    logOutUserSuccess = "LOG_OUT_USER_SUCCESS",
 }

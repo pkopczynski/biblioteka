@@ -1,4 +1,4 @@
-import { removeElement, addElement, fetchData } from '../api/firebase';
+import { removeElement, addElement, fetchData, registerUser, loginUser, signOutUser } from '../api/firebase';
 import { IBook } from '../Manage/ManageComponent';
 import { ActionType } from '../constants/actionTypes';
 import { MyThunkAction } from './interface';
@@ -62,7 +62,7 @@ export interface DeleteBookFailure extends Action<ActionType.deleteBookFailure> 
     error: any;
 }
 
-export function deleteBook(space: string, elementId: string): MyThunkAction<DeleteBookSuccess | DeleteBookFailure, DeleteBookAction | DeleteBookSuccess | DeleteBookFailure > {
+export function deleteBook(space: string, elementId: string): MyThunkAction<DeleteBookSuccess | DeleteBookFailure, DeleteBookAction | DeleteBookSuccess | DeleteBookFailure> {
     return (dispatch) => {
         dispatch({
             type: ActionType.deleteBook,
@@ -110,5 +110,84 @@ export const addBookFailure = (error: any): AddBookFailure => ({
     type: ActionType.addBookFailure,
     error
 })
+
+export type CreateUserAction = Action<ActionType.createUser>
+export type CreateUserSuccess = Action<ActionType.createUserSuccess>
+export interface CreateUserFailure extends Action<ActionType.createUserFailure> {
+    error: any;
+}
+
+export function createUser(email: string, password: string): MyThunkAction<CreateUserSuccess | CreateUserFailure, CreateUserAction | CreateUserSuccess | CreateUserFailure> {
+    return (dispatch) => {
+        dispatch({
+            type: ActionType.createUser
+        })
+        return registerUser(email, password)
+            .then(() => dispatch(createUserSuccess()))
+            .catch((error) => dispatch(createUserFailure(error)))
+    }
+}
+
+export const createUserSuccess = (): CreateUserSuccess => ({
+    type: ActionType.createUserSuccess
+})
+
+export const createUserFailure = (error: any): CreateUserFailure => ({
+    type: ActionType.createUserFailure,
+    error
+})
+
+export type LogInUserAction = Action<ActionType.logInUser>
+export type LogInUserSuccess = Action<ActionType.logInUserSuccess>
+export interface LogInUserFailure extends Action<ActionType.logInUserFailure> {
+    error: any;
+}
+
+export function logInUser(email: string, password: string): MyThunkAction<LogInUserSuccess | LogInUserFailure, LogInUserAction | LogInUserSuccess | LogInUserFailure> {
+    return (dispatch) => {
+        dispatch({
+            type: ActionType.logInUser
+        })
+        return loginUser(email, password)
+            .then(() => dispatch(logInUserSuccess()))
+            .catch((error) => dispatch(logInUserFailure(error)))
+    }
+}
+
+export const logInUserSuccess = (): LogInUserSuccess => ({
+    type: ActionType.logInUserSuccess
+})
+
+export const logInUserFailure = (error: any): LogInUserFailure => ({
+    type: ActionType.logInUserFailure,
+    error
+})
+
+export type LogOutUserAction = Action<ActionType.logOutUser>
+export type LogOutUserSuccess = Action<ActionType.logOutUserSuccess>
+export interface LogOutUserFailure extends Action<ActionType.logOutUserFailure> {
+    error: any;
+}
+
+export function logOutUser(): MyThunkAction<LogOutUserSuccess | LogOutUserFailure, LogOutUserAction | LogOutUserSuccess | LogOutUserFailure> {
+    return (dispatch) => {
+        dispatch({
+            type: ActionType.logOutUser
+        })
+        return signOutUser()
+            .then(() => dispatch(logOutUserSuccess()))
+            .catch((error) => dispatch(logOutUserFailure(error)))
+    }
+}
+
+export const logOutUserSuccess = (): LogOutUserSuccess => ({
+    type: ActionType.logOutUserSuccess
+})
+
+export const logOutUserFailure = (error: any): LogOutUserFailure => ({
+    type: ActionType.logOutUserFailure,
+    error
+})
+
 //tu dodawać kolejne interface dla akcji
-export type AppActions = OpenModal | CloseModal | FetchBooksAction | FetchBooksSuccess | FetchBooksFailure | DeleteBookAction | DeleteBookSuccess | DeleteBookFailure | AddBookAction | AddBookSuccess | AddBookFailure;
+export type AppActions = OpenModal | CloseModal | FetchBooksAction | FetchBooksSuccess | FetchBooksFailure | DeleteBookAction | DeleteBookSuccess | DeleteBookFailure | AddBookAction | AddBookSuccess | AddBookFailure | CreateUserAction | CreateUserSuccess | CreateUserFailure | LogInUserAction | LogInUserSuccess | LogInUserFailure | LogOutUserAction | LogOutUserSuccess | LogOutUserFailure;

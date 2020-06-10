@@ -6,12 +6,24 @@ import { firebaseConfig } from "../Firestore";
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
+const auth = firebase.auth();
+
+export function registerUser(email: string, password: string) {
+    return auth.createUserWithEmailAndPassword(email, password);
+}
+
+export function loginUser(email: string, password: string) {
+    return auth.signInWithEmailAndPassword(email, password);
+}
+
+export function signOutUser() {
+    return auth.signOut();
+}
 
 export async function fetchData(space: string) {
-    const db = firebase.firestore();
-    const booksDb = db.collection(space);
+    const databaseSpace = db.collection(space);
     let data: firebase.firestore.DocumentData[] = [];
-    await booksDb.get()
+    await databaseSpace.get()
         .then((querySnapshot) => {
             const arr: firebase.firestore.DocumentData[] = [];
             querySnapshot.forEach(function (doc) {
