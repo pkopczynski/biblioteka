@@ -1,4 +1,4 @@
-import { removeElement, addElement, fetchData, registerUser, loginUser, signOutUser } from '../api/firebase';
+import { removeElement, addElement, fetchData, registerUser, loginUser, signOutUser, authenticateUser } from '../api/firebase';
 import { IBook } from '../Manage/ManageComponent';
 import { ActionType } from '../constants/actionTypes';
 import { MyThunkAction } from './interface';
@@ -189,5 +189,34 @@ export const logOutUserFailure = (error: any): LogOutUserFailure => ({
     error
 })
 
+type AuthUserAction = Action<ActionType.authUser>
+interface AuthUserSuccess extends Action<ActionType.authUserSuccess> {
+    response: any;
+}
+
+interface AuthUserFailure extends Action<ActionType.authUserFailure> {
+    error: any;
+}
+export function authUser(): MyThunkAction<AuthUserSuccess | AuthUserFailure, AuthUserAction | AuthUserSuccess | AuthUserFailure> {
+    return (dispatch) => {
+        dispatch({
+            type: ActionType.authUser
+        })
+        return authenticateUser()
+            .then((response) => dispatch(authUserSuccess(response)))
+            .catch((error) => dispatch(authUserFailure(error)))
+    }
+}
+
+export const authUserSuccess = (response: any): AuthUserSuccess => ({
+    type: ActionType.authUserSuccess,
+    response
+})
+
+export const authUserFailure = (error: any): AuthUserFailure => ({
+    type: ActionType.authUserFailure,
+    error
+})
+
 //tu dodawać kolejne interface dla akcji
-export type AppActions = OpenModal | CloseModal | FetchBooksAction | FetchBooksSuccess | FetchBooksFailure | DeleteBookAction | DeleteBookSuccess | DeleteBookFailure | AddBookAction | AddBookSuccess | AddBookFailure | CreateUserAction | CreateUserSuccess | CreateUserFailure | LogInUserAction | LogInUserSuccess | LogInUserFailure | LogOutUserAction | LogOutUserSuccess | LogOutUserFailure;
+export type AppActions = OpenModal | CloseModal | FetchBooksAction | FetchBooksSuccess | FetchBooksFailure | DeleteBookAction | DeleteBookSuccess | DeleteBookFailure | AddBookAction | AddBookSuccess | AddBookFailure | CreateUserAction | CreateUserSuccess | CreateUserFailure | LogInUserAction | LogInUserSuccess | LogInUserFailure | LogOutUserAction | LogOutUserSuccess | LogOutUserFailure | AuthUserAction | AuthUserSuccess | AuthUserFailure;

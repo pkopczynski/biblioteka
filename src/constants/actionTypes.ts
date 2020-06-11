@@ -19,4 +19,7 @@ export enum ActionType {
     logOutUser = "LOG_OUT_USER",
     logOutUserFailure = "LOG_OUT_USER_FAILURE",
     logOutUserSuccess = "LOG_OUT_USER_SUCCESS",
+    authUser = "AUTHENTICATE_USER",
+    authUserSuccess = "AUTHENTICATE_USER_SUCCESS",
+    authUserFailure = "AUTHENTICATE_USER_FAILURE",
 }

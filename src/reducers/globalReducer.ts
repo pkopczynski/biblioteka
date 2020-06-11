@@ -9,6 +9,8 @@ const initialState = {
     books: [],
     error: {},
     shouldFetchData: true,
+    isAuthenticated: false,
+    user: null,
 }
 
 export const globalReducer = (state: State = initialState, action: AppActions): State => {
@@ -63,6 +65,20 @@ export const globalReducer = (state: State = initialState, action: AppActions): 
             return {
                 ...state,
                 shouldFetchData: true,
+            }
+        case ActionType.authUserSuccess:
+            console.log('user: ', action.response)
+            return {
+                ...state,
+                isAuthenticated: true,
+                user: action.response
+            }
+        case ActionType.authUserFailure:
+            console.log('error: ', action.error)
+            return {
+                ...state,
+                isAuthenticated: false,
+                error: action.error
             }
         default:
             return initialState;

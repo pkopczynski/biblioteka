@@ -23,3 +23,7 @@ export function getBooks(state: Store) {
 export function dataIsFetching(state: Store) {
     return getGlobalState(state).dataIsFetching;
 }
+
+export function isAuthenticated(state: Store) {
+    return getGlobalState(state).isAuthenticated;
+}

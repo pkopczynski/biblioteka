@@ -20,6 +20,29 @@ export function signOutUser() {
     return auth.signOut();
 }
 
+export function authenticateUser() {
+    return new Promise((resolve) => {
+        resolve(auth.onAuthStateChanged((user) => {
+            if (user) {
+                return user;
+            } else {
+                return null;
+            }
+        }))
+    })
+}
+
+export function authDirectly() {
+    return auth.onAuthStateChanged((user) => {
+        console.log(user)
+        if (user) {
+            return user;
+        } else {
+            return null;
+        }
+    })
+}
+
 export async function fetchData(space: string) {
     const databaseSpace = db.collection(space);
     let data: firebase.firestore.DocumentData[] = [];

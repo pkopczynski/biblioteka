@@ -1,14 +1,8 @@
-import React, { Fragment } from "react";
-import { Manage } from "./Manage/Manage";
-import { Footer } from "./Footer/Footer";
-import { Navbar } from "./Navbar/Navbar";
+import React from "react";
+import { CustomRouter } from "./Router/CustomRouter";
 
 export const App = () => {
   return (
-    <Fragment>
-      <Navbar />
-      <Manage />
-      <Footer />
-    </Fragment>
+    <CustomRouter />
   );
 };

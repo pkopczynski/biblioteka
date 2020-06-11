@@ -7,6 +7,8 @@ export interface State {
     books: Array<IBook>;
     error: any;
     shouldFetchData: boolean;
+    isAuthenticated: boolean;
+    user: {} | null;
 }
 
 export interface Store {
