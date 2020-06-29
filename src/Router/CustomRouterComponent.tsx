@@ -4,31 +4,34 @@ import { CustomRoute } from "./CustomRoute";
 import { Navbar } from "../Navbar/Navbar";
 import { Footer } from "../Footer/Footer";
 import { Manage } from "../Manage/Manage";
-import { Login } from "../Login/LoginComponent";
-import { authDirectly } from "../api/firebase";
+import { FirebaseReducer } from 'react-redux-firebase';
+import Login from "../Login/Login";
 
 interface CustomRouterComponentProps {
+    firebaseAuth: FirebaseReducer.AuthState;
     authUser: () => void;
 }
 
 export class CustomRouterComponent extends PureComponent<CustomRouterComponentProps> {
-    componentDidMount() {
-        authDirectly()
-    }
     render() {
+        const isUserAuthenticated = !!this.props.firebaseAuth.uid 
         return (
             <BrowserRouter>
                 <CustomRoute
                     path='/'
-                    navbar={<Navbar />}
+                    navbar={<Navbar isUserAuthenticated={isUserAuthenticated}/>}
                     footer={<Footer />}
                     component={<Manage />}
+                    protected={true}
+                    isAvaiable={isUserAuthenticated}
                 />
                 <CustomRoute
                     path='/login'
-                    navbar={<Navbar />}
+                    navbar={<Navbar isUserAuthenticated={isUserAuthenticated}/>}
                     footer={<Footer />}
                     component={<Login />}
+                    protected={false}
+                    isAvaiable={isUserAuthenticated}
                 />
             </BrowserRouter>
         );

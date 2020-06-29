@@ -5,6 +5,7 @@ import { IBook } from "../../Manage/ManageComponent";
 interface IAddButtonProps {
     onAdd: (element: IBook) => void;
     element: IBook;
+    visible: boolean;
 }
 
 export class AddButton extends PureComponent<IAddButtonProps> {
@@ -13,8 +14,9 @@ export class AddButton extends PureComponent<IAddButtonProps> {
         onAdd(element);
     }
     render() {
-        const {element} = this.props;
+        const {element, visible} = this.props;
         return (
+            visible &&
             <button
                 onClick={this.handleOnClick} >
                 add {element.title}

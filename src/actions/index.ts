@@ -154,14 +154,32 @@ export function logInUser(email: string, password: string): MyThunkAction<LogInU
     }
 }
 
-export const logInUserSuccess = (): LogInUserSuccess => ({
-    type: ActionType.logInUserSuccess
-})
+export function logInUserSuccess(): any {
+    console.log('succes w akcji')
+    return (dispatch: any) => {
+        dispatch({
+            type: ActionType.logInUserSuccess
+        })
+    }
+}
 
-export const logInUserFailure = (error: any): LogInUserFailure => ({
-    type: ActionType.logInUserFailure,
-    error
-})
+export function logInUserFailure(error: any): any {
+    console.log('error w akcji: ', error);
+    return (dispatch: any) => {
+        dispatch({
+            type: ActionType.logInUserFailure
+        })
+    }
+}
+
+// export const logInUserSuccess = (): LogInUserSuccess => ({
+//     type: ActionType.logInUserSuccess
+// })
+
+// export const logInUserFailure = (error: any): LogInUserFailure => ({
+//     type: ActionType.logInUserFailure,
+//     error
+// })
 
 export type LogOutUserAction = Action<ActionType.logOutUser>
 export type LogOutUserSuccess = Action<ActionType.logOutUserSuccess>

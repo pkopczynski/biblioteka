@@ -1,4 +1,5 @@
 import { IBook } from "../Manage/ManageComponent";
+import { FirebaseReducer } from 'react-redux-firebase'
 
 export interface State {
     isItemModalOpen: boolean;
@@ -13,4 +14,5 @@ export interface State {
 
 export interface Store {
     globalReducer: State;
+    firebase: FirebaseReducer.Reducer;
 }

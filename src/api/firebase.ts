@@ -13,6 +13,7 @@ export function registerUser(email: string, password: string) {
 }
 
 export function loginUser(email: string, password: string) {
+    console.log('strzał do api: ', auth.signInWithEmailAndPassword(email, password));
     return auth.signInWithEmailAndPassword(email, password);
 }
 

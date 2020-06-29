@@ -67,18 +67,27 @@ export const globalReducer = (state: State = initialState, action: AppActions): 
                 shouldFetchData: true,
             }
         case ActionType.authUserSuccess:
-            console.log('user: ', action.response)
             return {
                 ...state,
                 isAuthenticated: true,
                 user: action.response
             }
         case ActionType.authUserFailure:
-            console.log('error: ', action.error)
             return {
                 ...state,
                 isAuthenticated: false,
                 error: action.error
+            }
+        case ActionType.logInUserFailure:
+            console.log('error: ', action.error);
+            return {
+                ...state,
+                error: action.error
+            }
+        case ActionType.logInUserSuccess:
+            console.log('succes');
+            return {
+                ...state,
             }
         default:
             return initialState;

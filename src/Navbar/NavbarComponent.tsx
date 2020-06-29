@@ -3,12 +3,14 @@ import React from "react";
 import { AddButton } from "../SearchBar/styled/AddButton";
 import { book1, book2 } from "../mocks/elementMocks";
 import { IBook } from "../Manage/ManageComponent";
+import { Link } from "react-router-dom";
 
 interface NavbarComponentProps {
     addBook: (element: IBook) => void;
     createUser: (email: string, password: string) => void;
     logInUser: (email: string, password: string) => void;
     logOutUser: () => void;
+    isUserAuthenticated: boolean;
 }
 
 export class NavbarComponent extends PureComponent<NavbarComponentProps> {
@@ -25,16 +27,18 @@ export class NavbarComponent extends PureComponent<NavbarComponentProps> {
     }
 
     render() {
-        const { addBook } = this.props;
+        const { addBook, isUserAuthenticated } = this.props;
         return (
             <div>
                 <AddButton
                     onAdd={addBook}
                     element={book1}
+                    visible={isUserAuthenticated}
                 />
                 <AddButton
                     onAdd={addBook}
                     element={book2}
+                    visible={isUserAuthenticated}
                 />
                 <button
                     onClick={this.createUser}
@@ -51,6 +55,8 @@ export class NavbarComponent extends PureComponent<NavbarComponentProps> {
                 >
                     log out
                 </button>
+                <Link to='/login'>login component </Link>
+                <Link to='/'>main component</Link>
             </div>
         );
     }
