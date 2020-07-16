@@ -144,6 +144,7 @@ export interface LogInUserFailure extends Action<ActionType.logInUserFailure> {
 }
 
 export function logInUser(email: string, password: string): MyThunkAction<LogInUserSuccess | LogInUserFailure, LogInUserAction | LogInUserSuccess | LogInUserFailure> {
+    console.log('akcja login i dane: ', email, password);
     return (dispatch) => {
         dispatch({
             type: ActionType.logInUser

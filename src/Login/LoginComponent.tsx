@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 
 interface LoginProps {
     logInUser(login: string, password: string): void;
@@ -28,16 +29,16 @@ export class LoginComponent extends React.PureComponent<LoginProps> {
     }
 
     render() {
-        console.log(this.props.firebaseAuth)
         return (
             <>
-                <form>
-                    <input type='text' placeholder='login' onChange={this.onLoginChange}/>
-                    <input type='password' placeholder='hasło' onChange={this.onPasswordChange}/>
-                    <button type='submit' onClick={this.handleOnClick}>
-                        zaloguj
+                <input type='text' placeholder='login' onChange={this.onLoginChange} />
+                <input type='password' placeholder='hasło' onChange={this.onPasswordChange} />
+                <button onClick={this.handleOnClick}>
+                    zaloguj
                     </button>
-                </form>
+                <div>
+                    Jeżeli nie masz konta <Link to='/signup'>zarejestruj się</Link>
+                </div>
             </>
         );
     }

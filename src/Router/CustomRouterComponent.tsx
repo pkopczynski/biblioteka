@@ -6,6 +6,7 @@ import { Footer } from "../Footer/Footer";
 import { Manage } from "../Manage/Manage";
 import { FirebaseReducer } from 'react-redux-firebase';
 import Login from "../Login/Login";
+import { SignUp } from "../SignUp/SignUp";
 
 interface CustomRouterComponentProps {
     firebaseAuth: FirebaseReducer.AuthState;
@@ -30,6 +31,14 @@ export class CustomRouterComponent extends PureComponent<CustomRouterComponentPr
                     navbar={<Navbar isUserAuthenticated={isUserAuthenticated}/>}
                     footer={<Footer />}
                     component={<Login />}
+                    protected={false}
+                    isAvaiable={isUserAuthenticated}
+                />
+                <CustomRoute
+                    path='/signup'
+                    navbar={<Navbar isUserAuthenticated={isUserAuthenticated}/>}
+                    footer={<Footer />}
+                    component={<SignUp />}
                     protected={false}
                     isAvaiable={isUserAuthenticated}
                 />

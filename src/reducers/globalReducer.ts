@@ -79,16 +79,21 @@ export const globalReducer = (state: State = initialState, action: AppActions): 
                 error: action.error
             }
         case ActionType.logInUserFailure:
-            console.log('error: ', action.error);
             return {
                 ...state,
                 error: action.error
             }
         case ActionType.logInUserSuccess:
-            console.log('succes');
             return {
                 ...state,
             }
+
+            case ActionType.createUserFailure:
+                console.log(action.error);
+                return {
+                    ...state,
+                    error: action.error
+                }
         default:
             return initialState;
     }

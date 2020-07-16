@@ -27,3 +27,7 @@ export function dataIsFetching(state: Store) {
 export function isAuthenticated(state: Store) {
     return getGlobalState(state).isAuthenticated;
 }
+
+export function getError(state: Store) {
+    return getGlobalState(state).error;
+}
